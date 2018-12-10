@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件的三大属性之state</title>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/javascript" src="../js/babel.min.js"></script>
+<script type="text/javascript" src="../js/react.development.js"></script>
+<script type="text/javascript" src="../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../js/prop-types.js"></script>
+<script type="text/babel">
+    //定义组件
+    class CustomComponent extends React.Component {
+
+        constructor(props) {
+            super(props)
+            this.showInput=this.showInput.bind(this)//将新增得方法中得this强制绑定为组件对象
+            this.handleBlue=this.handleBlue.bind(this)//将新增得方法中得this强制绑定为组件对象
+        }
+        showInput(){
+            //const input=this.refs.content
+            alert(this.input.value)
+        }
+        handleBlue(event){//所有事件回调函数都有一个形参event
+            alert(event.target.value)//得到当前发生事件元素得值
+        }
+        render() {
+            return  <div>
+                <input type="text" ref="content"/>
+                <input type="text" ref={input=>this.input=input}/>
+                <button onClick={this.showInput}>提示输入</button>
+                <input type="text" placeholder="失去焦点提示类容" onBlur={this.handleBlue}/>
+            </div>
+        }
+    }
+    //将虚列dom渲染到真实dom
+    ReactDOM.render(<CustomComponent/>, document.getElementById('example'))
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件的三大属性之state</title>
+</head>
+<body>
+<div id="test"></div>
+<div id="test1"></div>
+<script type="text/javascript" src="../js/babel.min.js"></script>
+<script type="text/javascript" src="../js/react.development.js"></script>
+<script type="text/javascript" src="../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../js/prop-types.js"></script>
+<script type="text/babel">
+    //定义组件
+  /*  function Person(props) {
+        return(
+            <ul>
+                <li>姓名:{props.name}</li>
+                <li>年龄:{props.age}</li>
+                <li>性别:{props.sex}</li>
+            </ul>
+        )
+    }*/
+
+    class Person extends React.Component {
+
+        constructor(props) {
+            super(props)
+        }
+
+        render() {
+            return  <ul>
+                <li>姓名:{this.props.name}</li>
+                <li>年龄:{this.props.age}</li>
+                <li>性别:{this.props.sex}</li>
+            </ul>
+        }
+    }
+    //指定属性默认值
+    Person.defaultProps={
+        age:18,
+        sex:'female'
+    }
+    //指定属性值得类型和必要性
+    Person.propTypes={
+        name:PropTypes.string.isRequired,
+        age:PropTypes.number,
+    }
+    const p1={
+        name:'Tom',
+        age:18,
+        sex:'male'
+    }
+    //将虚列dom渲染到真实dom
+    ReactDOM.render(<Person {...p1}/>, document.getElementById('test'))
+    //ReactDOM.render(<Person {...p1}/>, document.getElementById('test1'))
+</script>
+</body>
+</html>

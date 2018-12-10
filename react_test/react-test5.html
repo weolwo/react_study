@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件的三大属性之state</title>
+</head>
+<body>
+<div id="test"></div>
+<script type="text/javascript" src="../js/babel.min.js"></script>
+<script type="text/javascript" src="../js/react.development.js"></script>
+<script type="text/javascript" src="../js/react-dom.development.js"></script>
+<script type="text/babel">
+
+    class CustomComponent extends React.Component {
+
+        constructor(props) {
+            super(props)
+            //初始化state
+            this.state = {
+                isLike: false
+            }
+            //将新增得方法中得this强制绑定为组件对象
+            this.handlerClik = this.handlerClik.bind(this)
+        }
+
+        //新增得方法,内部的this默认指向不是组件对象,而是undefined
+        handlerClik() {
+            //得到以前的状态并取反
+            const isLike = !this.state.isLike
+            //更新状态
+            this.setState({isLike})
+        }
+
+        render() {
+            //读取状态
+            const {isLike} = this.state//解构赋值
+            return <h1 onClick={this.handlerClik}>{isLike ? '花猫' : '淡淡的猫香'}</h1>
+        }
+    }
+
+    //将虚列dom渲染到真实dom
+    ReactDOM.render(<CustomComponent/>, document.getElementById('test'))
+</script>
+</body>
+</html>
